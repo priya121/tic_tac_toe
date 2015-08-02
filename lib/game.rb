@@ -2,7 +2,7 @@ require 'display'
 require 'player'
 require 'board'
 
-class TicTacToe
+class Game
   attr_reader :cells
 
   def initialize(cells,input,output)
