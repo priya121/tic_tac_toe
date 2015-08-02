@@ -3,8 +3,6 @@
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 
 require 'tic_tac_toe'
-require 'player'
-require 'display'
 
 cells = Board.generate_empty_board(3,3)
 
