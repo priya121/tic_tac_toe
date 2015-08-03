@@ -22,12 +22,6 @@ class Players
   end
 
 
-
-  def computer_player(index)
-    @cells[index] = 'x'
-    @score.score
-  end
-
   def player_two_move
     index = @input.gets.to_i - 1
     if @board.check_empty?(index) == true

@@ -23,15 +23,4 @@ describe Players do
                                     
   end
 
-  it 'scores making a winning move higher than a tie move' do 
-    cells = ['o','x','o','x',' ','x','o','o',' ']
-    input = StringIO.new("1\n2\n")
-    expect(Players.new(cells,input,output).computer_player(4)).to eq(1)
-  end
-
-  it "doesn't score when it makes a move that results in a tie" do 
-    cells = ['o','x','o','x',' ','x','o','o',' ']
-    input = StringIO.new("1\n2\n")
-    expect(Players.new(cells,input,output).computer_player(8)).to eq(0)
-  end
 end
