@@ -10,8 +10,12 @@ describe ComputerPlayer do
   it 'returns an index if it is a winning move' do
     cells = ['o','x','o','x',' ','x','o','o',' ']
     expect(ComputerPlayer.new(cells).computer_player).to eq([4])
+  end
 
-
+  it 'makes a winning move over a move that results in a tie' do
+    cells = ['o','x','o','x',' ','x','o','o',' ']
+    expect(ComputerPlayer.new(cells).computer_player_make_move).to eq(['o','x','o','x','x','x','o','o',' '])
+    expect(ComputerPlayer.new(cells).computer_player_make_move).to_not eql(['o','x','o',' ','x','x','o','o','x'])
   end
 
 end

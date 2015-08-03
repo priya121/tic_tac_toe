@@ -7,18 +7,25 @@ class ComputerPlayer
   end
 
   def computer_player
-    winning_move = []
-    tie_move = []
+    @winning_move = []
     @cells.each_with_index do |check_if_win, index|
       if @cells[index]  == ' ' 
         @cells[index] = 'x'
         score = @score.score
         @cells[index] = ' '
         if score == 1 
-          winning_move << index
+          @winning_move << index
         end
       end
     end
-    winning_move
+    @winning_move
   end
+
+  def computer_player_make_move
+    computer_player
+    @cells[@winning_move[0]] = 'x'
+    @cells
+  end
+
+
 end
