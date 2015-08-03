@@ -18,13 +18,7 @@ describe Board do
     it 'adds +1 to the score if a winning position is found for x' do 
     cells = ['x','x','x',' ',' ',' ',' ',' ',' ']
     expect(Board.new(cells).any_winners?([' ',' ','x',' ','x',' ','x',' ',' '])).to eq(true)
-    expect(Board.new(cells).score).to eq(1)
     end
-  end
-
-  it 'returns true when there is a winning move' do
-    cells = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
-    expect(Board.new(cells).any_winners?([' ',' ','x',' ','x',' ','x',' ',' '])).to eq(true)
   end
 
   describe '#winning moves' do

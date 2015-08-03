@@ -5,6 +5,7 @@ describe Game do
 
   let(:input) {StringIO.new('')}
   let(:output) {StringIO.new('')}
+  let(:board) {output.string.split("\n")}
 
   it 'has three rows and three columns' do 
     expect(Game.new(EMPTY_BOARD,input,output).cells).to eq([' ',' ',' ',' ',' ',' ',' ',' ',' '])
@@ -31,5 +32,7 @@ describe Game do
     marked_board = Game.new(EMPTY_BOARD,input,output).game_loop
     expect(output.string).to include("o")
     expect(output.string).to include("x")
+    expect(board[0]).to include("o")
   end
+
 end

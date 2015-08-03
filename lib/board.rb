@@ -29,14 +29,6 @@ class Board
       true
     end
   end
-  
-  def score 
-    score = 0
-    if any_winners?(@cells) == true 
-      score = +1
-    end
-  end
-
 
   def winning_moves(cells)
     win = {:top_row_win => cells[0] == 'x' && cells[1] == 'x' && cells[2] == 'x',

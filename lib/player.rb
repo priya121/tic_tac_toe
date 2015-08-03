@@ -1,4 +1,5 @@
 require 'board'
+require 'score'
 
 class Players
   def initialize(cells,input,output)
@@ -6,6 +7,7 @@ class Players
     @input = input
     @output = output
     @board = Board.new(@cells)
+    @score = Score.new(@cells)
   end
 
   def player_one_move
@@ -17,6 +19,13 @@ class Players
       player_one_move
     end
     @cells
+  end
+
+
+
+  def computer_player(index)
+    @cells[index] = 'x'
+    @score.score
   end
 
   def player_two_move
