@@ -19,12 +19,13 @@ class Game
     @display.display_board(@cells)
     player_one_turn
     player_two_turn
-    @output.puts "Winner #{@board.winning_moves(@cells)}"
+    @output.puts "Winner #{@board.x_winning_positions(@cells)}"
+    @output.puts "Winner #{@board.o_winning_positions(@cells)}"
     @output.puts "End of game."
   end
 
   def player_one_turn
-    while @board.board_not_full? == true && @board.any_winners?(@cells) != true 
+    while @board.board_not_full? == true && @board.any_x_winners?(@cells) != true && @board.any_o_winners?(@cells) != true
       updated_board = @players.player_one_move
       @display.display_board(updated_board)
       @output.puts "Next player"
@@ -33,15 +34,12 @@ class Game
   end
 
   def player_two_turn
-    if  @board.board_not_full? == true && @board.any_winners?(@cells) != true 
+    if  @board.board_not_full? == true && @board.any_x_winners?(@cells) != true && @board.any_o_winners?(@cells) != true
       new_board = @players.player_two_move
       @display.display_board(new_board)
       @output.puts "Next player"
     end
   end
-
-
-
 end
 
 

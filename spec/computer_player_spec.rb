@@ -21,8 +21,13 @@ describe ComputerPlayer do
  it "stops the human player from winning" do 
     cells = ['o',' ','o','x','x','o',' ','o','x']
     expect(ComputerPlayer.new(cells).computer_player_blocking_move).to eq(['o','x','o','x','x','o',' ','o','x'])
-    
  end
+
+ it 'makes a winning move over a blocking move' do 
+    cells = ['o',' ','o','x',' ','x','o','x','x']
+    expect(ComputerPlayer.new(cells).computer_win_over_block).to eq(['o',' ','o','x','x','x','o','x','x'])
+ end
+
 end
 
 

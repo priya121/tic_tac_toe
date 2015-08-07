@@ -11,7 +11,7 @@ class ComputerPlayer
     @cells.each_with_index do |check_if_win, index|
       if @cells[index]  == ' ' 
         @cells[index] = 'x'
-        score = @score.score
+        score = @score.x_score_win
         @cells[index] = ' '
         if score == 1 
           @winning_move << index
@@ -32,9 +32,9 @@ class ComputerPlayer
     @cells.each_with_index do |check_if_block,index|
     if @cells[index] == ' '
       @cells[index] = 'o'
-      score = @score.score
+      score = @score.x_score_draw
       @cells[index] = ' '
-        if score == 1 
+        if score == 0
           @blocking_moves << index
         end
       end
@@ -48,5 +48,22 @@ class ComputerPlayer
     @cells
   end
 
+  def computer_win_over_block
+    winning_position = []
+    @cells.each_with_index do |check_win,index|
+      if @cells[index] == ' '
+        @cells[index] = 'x'
+        score = @score.x_score_win
+        @cells[index] = 'o'
+        alternative_score = @score.x_score_draw
+        @cells[index] = ' '
+        if score > alternative_score
+          @cells[index] = 'x'
+        end
+      end
+    end
+  end
+
 end
+
 

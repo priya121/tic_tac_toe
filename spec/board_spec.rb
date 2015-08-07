@@ -15,9 +15,14 @@ describe Board do
   end
 
   describe '#any_winners?' do
-    it 'adds +1 to the score if a winning position is found for x' do 
+    it 'adds 1 to the score if a winning position is found for x' do 
     cells = ['x','x','x',' ',' ',' ',' ',' ',' ']
-    expect(Board.new(cells).any_winners?([' ',' ','x',' ','x',' ','x',' ',' '])).to eq(true)
+    expect(Board.new(cells).any_x_winners?([' ',' ','x',' ','x',' ','x',' ',' '])).to eq(true)
+    end
+
+    it ' subtracts 1 from the score if a winning position is found for x' do 
+    cells = ['o','o','o',' ',' ',' ',' ',' ',' ']
+    expect(Board.new(cells).any_o_winners?(['o','o','o',' ','x',' ','x',' ',' '])).to eq(true)
     end
   end
 
@@ -25,15 +30,16 @@ describe Board do
       board = ([' ',' ',' ',' ',' ',' ',' ',' ',' '])
     
     it 'wins when the first row is all x' do 
-      expect(Board.new(board).winning_moves(['x','x','x',' ',' ',' ',' ',' ',' '])).to eq([:top_row_win])
+      marked_board = ['x','x','x',' ',' ',' ',' ',' ',' ']
+      expect(Board.new(board).x_winning_positions(marked_board)).to eq([:top_row_win])
     end
 
     it 'wins when the left hand column is all x' do 
-      expect(Board.new(board).winning_moves(['x',' ',' ','x',' ',' ','x',' ',' '])).to eq([:left_side_win])
+      expect(Board.new(board).x_winning_positions(['x',' ',' ','x',' ',' ','x',' ',' '])).to eq([:left_side_win])
     end
 
     it 'wins when there is a diagonal from top right win for x' do 
-      expect(Board.new(board).winning_moves([' ',' ','x',' ','x',' ','x',' ',' '])).to eq([:diagonal_from_top_right])
+      expect(Board.new(board).x_winning_positions([' ',' ','x',' ','x',' ','x',' ',' '])).to eq([:diagonal_from_top_right])
     end
   end
 end
