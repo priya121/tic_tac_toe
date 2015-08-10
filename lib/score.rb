@@ -26,19 +26,4 @@ class Score
     score
   end
 
-  def x_score_loss
-    score = 0
-    if @board.any_o_winners?(@cells) == true 
-      score = - 1
-    end
-    score
-  end
-
-  def x_score_draw
-    score = 0
-    if @board.any_o_winners?(@cells) == false && @board.any_x_winners?(@cells) == false
-      score = 0
-    end
-    score
-  end
 end
