@@ -10,7 +10,6 @@ class ComputerPlayer
   end
 
   def all_moves(game_state)
-    @scores = []
     @index_of_all_moves = []
     game_state.each_with_index do |place_x,index|
       if game_state[index] == ' '
@@ -29,19 +28,19 @@ class ComputerPlayer
     if @board.board_not_full? != true || @board.any_x_winners?(game_state) == true || @board.any_o_winners?(game_state) == true
       return @score.x_score(game_state)
     else
-      @results = {}
-      @moves = []
+      @scores_for_move = {}
+      @moves_index = []
       index_of_all_moves(game_state).each do |move|
         new_game_state = game_state
         new_game_state[move] = current_player
         puts new_game_state.inspect
-        @results[move] = (minimax_score(new_game_state,switch_player(current_player)))
-        @moves << move
+        @scores_for_move[move] = (minimax_score(new_game_state,switch_player(current_player)))
+        @moves_index << move
         new_game_state[move] = ' '
       end
     end
-    @results.inspect
-    @choice = best_position(current_player, @results)
+    @scores_for_move.inspect
+    @choice = best_position(current_player, @scores_for_move)
     end
 
     def best_position(current_player, scores)
@@ -65,6 +64,11 @@ class ComputerPlayer
       @cells[index] = 'x'
     end
     index
+  end
+
+  def make_move(game_state)
+    best_move(game_state)
+    @cells
   end
 
   def switch_player(current_player)

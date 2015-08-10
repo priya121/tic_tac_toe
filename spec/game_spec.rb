@@ -34,4 +34,13 @@ describe Game do
     expect(output.string).to include("x")
     expect(board[0]).to include("o")
   end
+
+  it 'returns a computer player move automatically when a human move has been made' do 
+    input = StringIO.new("1\n3\n5\n8\n9")
+    new_board = ['x',' ',' ',
+                 ' ',' ',' ',
+                 ' ',' ',' ']
+    Game.new(new_board,input,output).game_loop
+    expect(output.string).to include('x')
+  end
 end

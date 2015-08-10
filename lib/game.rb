@@ -21,8 +21,12 @@ class Game
     @display.display_board(@cells)
     player_two_turn
     computer_player
+    if @board.x_winning_positions(@cells).size > 0 
     @output.puts "Winner #{@board.x_winning_positions(@cells)}"
+    elsif
+    @board.o_winning_positions(@cells).size > 0
     @output.puts "Winner #{@board.o_winning_positions(@cells)}"
+    end
     @output.puts "End of game."
   end
 
@@ -46,7 +50,7 @@ class Game
 
   def computer_player
     if  @board.board_not_full? == true && @board.any_x_winners?(@cells) != true && @board.any_o_winners?(@cells) != true
-      new_board = @computer_player.best_move(@cells)
+      new_board = @computer_player.make_move(@cells)
       @display.display_board(new_board)
       @output.puts "Next player"
     end
