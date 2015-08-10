@@ -20,7 +20,11 @@ describe Players do
     input = StringIO.new("1\n2\n")
     marked_board = Players.new(marked_board,input,output).player_one_move
     expect(output.string).to include("position occupied, try again")
-                                    
+  end
+
+  it 'counts the move number or depth from the player' do 
+    input = StringIO.new("1\n2\n3\n4\n5\n6\n7\n8\n9")
+    expect(Players.new(board,input,output).move_count).to eq(8)
   end
 
 end

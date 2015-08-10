@@ -6,21 +6,6 @@ class Score
     @board = Board.new(@cells)
   end
 
-  def x_max_score_assessment
-    scores = []
-    scores << x_score_win
-    scores << x_score_loss
-    scores << x_score_draw
-    max(scores)
-  end
-
-  def x_min_score_assessment
-    scores = []
-    scores << x_score_win
-    scores << x_score_loss
-    scores << x_score_draw
-    min(scores)
-  end
 
   def min(scores)
     scores.min
@@ -30,10 +15,13 @@ class Score
     scores.max
   end
 
-  def x_score_win
-    score = 0
-    if @board.any_x_winners?(@cells) == true 
-      score = +1
+  def x_score(game_state)
+    if @board.any_x_winners?(game_state) == true 
+      score = + 10
+    elsif @board.any_o_winners?(game_state) == true
+      score = - 10
+    else 
+      score = 0
     end
     score
   end
