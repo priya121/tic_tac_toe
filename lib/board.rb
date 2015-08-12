@@ -11,29 +11,19 @@ class Board
   end
   
   def check_empty?(index)
-    if @cells[index] == " "
-      true
-    else
-      false
-    end
+    @cells[index] == " "
   end
 
   def board_not_full?
-    if @cells.include?(" ")
-      true
-    end
+    @cells.include?(" ")
   end
 
   def any_x_winners?(cells)
-    if x_winning_positions(cells).size > 0
-      true
-    end
+    x_winning_positions(cells).size > 0
   end
 
   def any_o_winners?(cells)
-    if o_winning_positions(cells).size > 0
-      true
-    end
+    o_winning_positions(cells).size > 0
   end
 
   def x_winning_positions(cells)
@@ -56,7 +46,7 @@ class Board
   end
 
   def o_winning_positions(cells)
-      o_win = {
+    o_win = {
       :o_top_row_win => cells[0] == 'o' && cells[1] == 'o' && cells[2] == 'o',
       :o_left_side_win => cells[0] == 'o' && cells[3] == 'o' && cells[6] == 'o',           
       :o_bottom_row_win => cells[6] == 'o' && cells[7] == 'o' && cells[8] == 'o',          
@@ -66,13 +56,12 @@ class Board
       :o_diagonal_from_top_left => cells[0] == 'o' && cells[4] == 'o' && cells[8] == 'o', 
       :o_diagonal_from_top_right => cells[2] == 'o' && cells[4] == 'o' && cells[6] == 'o'}
 
-    @o_winners = []
-    o_win.each_with_index do |(check_move,cells),index|
-    if cells == true
-      @o_winners << check_move
-    end
-    end
-    @o_winners
+      @o_winners = []
+      o_win.each_with_index do |(check_move,cells),index|
+      if cells == true
+        @o_winners << check_move
+      end
+      end
+      @o_winners
   end
-
 end

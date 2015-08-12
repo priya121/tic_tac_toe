@@ -16,9 +16,9 @@ class Score
   end
 
   def x_score(game_state)
-    if @board.any_x_winners?(game_state) == true 
+    if @board.any_x_winners?(game_state) 
       score = + 10
-    elsif @board.any_o_winners?(game_state) == true
+    elsif @board.any_o_winners?(game_state) 
       score = - 10
     else 
       score = 0

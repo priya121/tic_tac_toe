@@ -30,31 +30,22 @@ class Game
     @output.puts "End of game."
   end
 
-  def player_one_turn
-    while @board.board_not_full? == true && @board.any_x_winners?(@cells) != true && @board.any_o_winners?(@cells) != true
-      updated_board = @players.player_one_move
-      @display.display_board(updated_board)
-      @output.puts "Next player"
-      player_two_turn
-    end
-  end
+  private
 
   def player_two_turn
-    while @board.board_not_full? == true && @board.any_x_winners?(@cells) != true && @board.any_o_winners?(@cells) != true
+    while @board.board_not_full? && @board.any_x_winners?(@cells) == false && @board.any_o_winners?(@cells) == false
       new_board = @players.player_two_move
       @display.display_board(new_board)
-      @output.puts "Next player"
       computer_player
+      @output.puts "Choose a position on the board (1 - 9):"
     end
   end
 
   def computer_player
-    if  @board.board_not_full? == true && @board.any_x_winners?(@cells) != true && @board.any_o_winners?(@cells) != true
-      new_board = @computer_player.make_move(@cells)
+    if  @board.board_not_full? && @board.any_x_winners?(@cells) == false && @board.any_o_winners?(@cells) == false
+      new_board = @computer_player.best_move(@cells)
       @display.display_board(new_board)
       @output.puts "Next player"
     end
   end
 end
-
-

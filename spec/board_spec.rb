@@ -2,7 +2,9 @@ require 'board'
 
 describe Board do
   it 'generates a board' do 
-    expect(Board.generate_empty_board(3,3)).to eq([' ',' ',' ',' ',' ',' ',' ',' ',' '])
+    expect(Board.generate_empty_board(3,3)).to eq([' ',' ',' ',
+ ' ',' ',' ',
+ ' ',' ',' '])
   end
 
   it 'checks if a position is empty and if it is returns true' do 
@@ -21,7 +23,9 @@ describe Board do
     end
 
     it ' subtracts 1 from the score if a winning position is found for x' do 
-    cells = ['o','o','o',' ',' ',' ',' ',' ',' ']
+    cells = ['o','o','o',
+             ' ',' ',' ',
+             ' ',' ',' ']
     expect(Board.new(cells).any_o_winners?(['o','o','o',' ','x',' ','x',' ',' '])).to eq(true)
     end
   end

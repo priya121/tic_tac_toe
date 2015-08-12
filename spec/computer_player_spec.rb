@@ -34,19 +34,13 @@ describe ComputerPlayer do
  end
 
  it 'checks if it is the computer players turn and returns the best move' do 
-    cells = [' ','x','x',
-             ' ',' ',' ',
-             'x','o','x']
-    current_player = 'x'
-    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(0)
- end
-
- it 'checks if it is the computer players turn and returns the best move' do 
     cells = ['o','o','x',
              'x',' ',' ',
              'x','o','x']
     current_player = 'x'
-    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(4)
+    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(['o','o','x',
+'x','x',' ',
+'x','o','x'])
  end
 
  it 'returns a score of 0 if the end board is a draw' do
@@ -72,11 +66,14 @@ describe ComputerPlayer do
     current_player = 'o'
     expect(ComputerPlayer.new(cells,input,output).minimax_score(cells,current_player)).to eq(-10)
  end
+
  it 'checks if it is the computer players turn and returns the best move' do 
     cells = [' ','x',' ',
              'x',' ','x',
              'x','o','o']
-    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(0)
+    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(['x','x',' ',
+'x',' ','x',
+'x','o','o'])
  end
 
  it 'switches between players' do 
@@ -91,7 +88,9 @@ describe ComputerPlayer do
     cells = ['o','x','x',
              'x','o','o',
              ' ',' ',' ']
-    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(8)
+    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(['o','x','x',
+'x','o','o',
+' ',' ','x'])
  end
 
  xit 'checks if it is the computer players turn returns best move' do 
@@ -107,7 +106,9 @@ describe ComputerPlayer do
              'o',' ',' ',
              ' ','o','o']
     current_player = 'x'
-    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(1)
+    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(['x','x','x',
+'o',' ',' ',
+' ','o','o'])
  end
 
  it 'checks if it is the computer players turn returns best move' do 
@@ -115,7 +116,11 @@ describe ComputerPlayer do
              'o','x','o',
              ' ','o','o']
     current_player = 'x'
-    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(2)
+    expect(ComputerPlayer.new(cells,input,output).best_move(cells)).to eq(
+    ['x',' ','x',
+     'o','x','o',
+     ' ','o','o'])
+            
  end
 end
 

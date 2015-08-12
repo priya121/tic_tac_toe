@@ -16,7 +16,7 @@ class Players
 
   def player_one_move
     index = @input.gets.to_i - 1
-    if @board.check_empty?(index) == true
+    if @board.check_empty?(index) 
       @cells[index] = "x"
       @move += 1
     else 
@@ -28,7 +28,7 @@ class Players
 
   def player_two_move
     index = @input.gets.to_i - 1
-    if @board.check_empty?(index) == true
+    if @board.check_empty?(index) 
       @cells[index] = "o"
       @move += 1
     else 
@@ -38,11 +38,4 @@ class Players
     @cells
   end
 
-  def move_count
-    while @board.board_not_full? == true && @board.any_x_winners?(@cells) != true && @board.any_o_winners?(@cells) != true
-      player_two_move
-      player_one_move
-    end
-    @move
-  end
 end

@@ -9,19 +9,18 @@ class ComputerPlayer
     @players = Players.new(@cells,@input,@output)
   end
 
-  def all_moves(game_state)
-    @index_of_all_moves = []
+  def all_available_moves(game_state)
+    index_of_all_moves = []
     game_state.each_with_index do |place_x,index|
       if game_state[index] == ' '
-        @index_of_all_moves << index
+        index_of_all_moves << index
       end
     end
-    @index_of_all_moves
+    index_of_all_moves
   end
 
   def index_of_all_moves(game_state)
-    all_moves(game_state)
-    @index_of_all_moves
+    all_available_moves(game_state)
   end
 
   def minimax_score(game_state,current_player)
@@ -33,7 +32,6 @@ class ComputerPlayer
       index_of_all_moves(game_state).each do |move|
         new_game_state = game_state
         new_game_state[move] = current_player
-        puts new_game_state.inspect
         @scores_for_move[move] = (minimax_score(new_game_state,switch_player(current_player)))
         @moves_index << move
         new_game_state[move] = ' '
@@ -44,30 +42,21 @@ class ComputerPlayer
     end
 
     def best_position(current_player, scores)
-    if current_player == 'x'
-      puts scores
-      scores.each do |key,value|
-        return key
+    if current_player == 'o'
+      scores.max_by do |key,value| value
+      return key
       end
     elsif
-      current_player == 'o'
-      puts scores
-      scores.each do |key,value|
-        return key
+      current_player == 'x'
+      scores.min_by do |key,value| value
+      return key
       end
     end
   end
 
   def best_move(game_state)
-    index = minimax_score(game_state,current_player = 'o')
-    if @board.check_empty?(index) == true
-      @cells[index] = 'x'
-    end
-    index
-  end
-
-  def make_move(game_state)
-    best_move(game_state)
+    index = minimax_score(game_state,current_player = 'x')
+    @cells[index] = 'x'
     @cells
   end
 
@@ -80,75 +69,4 @@ class ComputerPlayer
     end
     current_player
   end
-
-
-  def computer_player
-    @winning_move = []
-    @cells.each_with_index do |check_if_win, index|
-      if @cells[index]  == ' ' 
-        @cells[index] = 'x'
-        score = @score.x_score
-        @cells[index] = ' '
-        if score == 1 
-          @winning_move << index
-        end
-      end
-    end
-    @winning_move
-  end
-
-  def any_blocking_moves
-    if computer_player_blocking_move != nil
-      true
-    else
-      false
-    end
-  end
-
-  def computer_player_winning_move
-    if computer_player.size > 0
-      @cells[@winning_move[0]] = 'x'
-    else
-      @cells = @cells
-    end
-    @cells
-  end
-
-  def block_move
-    @blocking_moves = []
-    @cells.each_with_index do |check_if_block,index|
-      if @cells[index] == ' '
-        @cells[index] = 'o'
-        score = @score.x_score_draw
-        @cells[index] = ' '
-        if score == 0
-          @blocking_moves << index
-        end
-      end
-    end
-    @blocking_moves
-  end
-
-  def computer_player_blocking_move
-    block_move
-    @cells[@blocking_moves[0]] = 'x'
-    @cells
-  end
-
-  def computer_win_over_block
-    winning_position = []
-    @cells.each_with_index do |check_win,index|
-      if @cells[index] == ' '
-        @cells[index] = 'x'
-        score = @score.x_score
-        @cells[index] = 'o'
-        alternative_score = @score.x_score_draw
-        @cells[index] = ' '
-        if score > alternative_score
-          @cells[index] = 'x'
-        end
-      end
-    end
-  end
-
 end
