@@ -2,9 +2,9 @@ require 'board'
 
 describe Board do
   it 'generates a board' do 
-    expect(Board.generate_empty_board(3,3)).to eq([' ',' ',' ',
- ' ',' ',' ',
- ' ',' ',' '])
+    expect(Board.generate_empty_board).to eq([' ',' ',' ',
+                                              ' ',' ',' ',
+                                              ' ',' ',' '])
   end
 
   it 'checks if a position is empty and if it is returns true' do 
@@ -17,12 +17,12 @@ describe Board do
   end
 
   describe '#any_winners?' do
-    it 'adds 1 to the score if a winning position is found for x' do 
+    it 'returns true if a winning position is found for x' do 
     cells = ['x','x','x',' ',' ',' ',' ',' ',' ']
     expect(Board.new(cells).any_x_winners?([' ',' ','x',' ','x',' ','x',' ',' '])).to eq(true)
     end
 
-    it ' subtracts 1 from the score if a winning position is found for x' do 
+    it 'retrun true if a winning position is found for x' do 
     cells = ['o','o','o',
              ' ',' ',' ',
              ' ',' ',' ']
@@ -43,7 +43,16 @@ describe Board do
     end
 
     it 'wins when there is a diagonal from top right win for x' do 
-      expect(Board.new(board).x_winning_positions([' ',' ','x',' ','x',' ','x',' ',' '])).to eq([:diagonal_from_top_right])
+      expect(Board.new(board).x_winning_positions([' ',' ','x',
+                                                   ' ','x',' ',
+                                                   'x',' ',' '])).to eq([:diagonal_from_top_right])
+    end
+
+    it 'returns true if there is a winner' do 
+    cells = ['o','o','o',
+             ' ',' ',' ',
+             ' ',' ',' ']
+    expect(Board.new([' ',' ',' ',' ',' ',' ',' ',' ',' ']).any_won?([1,4,2,5,7])).to eq(true)
     end
   end
 end

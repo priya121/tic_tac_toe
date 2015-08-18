@@ -6,7 +6,6 @@ class Score
     @board = Board.new(@cells)
   end
 
-
   def min(scores)
     scores.min
   end

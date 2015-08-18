@@ -3,11 +3,8 @@ class Board
     @cells = cells
   end
 
-  def self.generate_empty_board(width,height)
-    empty_grid = ''
-    empty_cells = (" " * (width * height))
-    empty_grid << empty_cells
-    empty_grid.split(//)
+  def self.generate_empty_board
+    Array.new(9,' ')
   end
   
   def check_empty?(index)
@@ -16,6 +13,44 @@ class Board
 
   def board_not_full?
     @cells.include?(" ")
+  end
+
+  def winning_positions
+    won = [[0,1,2], 
+           [0,3,6],
+           [6,7,8],
+           [8,5,2],
+           [3,4,5],
+           [1,4,7],
+           [0,4,8],
+           [2,4,8]]
+  end
+
+  def player_indicies(cells,player)
+    @x_indicies = []
+    @o_indicies = []
+    cells.each_with_index do |cell,index|
+      if cell == 'x'
+        @x_indicies << index
+      elsif cell == 'o'
+        @o_indicies << index
+      end
+    end
+  end
+
+  def any_won?(indicies)
+    won = []
+    i = 0 
+    n = 0
+    winning_positions.each do |winning_combination|
+      indicies.each do |winner|
+        if winner == winning_combination[n]
+          won << winner 
+        end
+      end
+      n += 1
+    end
+    puts won.inspect
   end
 
   def any_x_winners?(cells)

@@ -6,7 +6,6 @@ class ComputerPlayer
     @cells = cells
     @score = Score.new(@cells)
     @board = Board.new(@cells)
-    @players = Players.new(@cells,@input,@output)
   end
 
   def all_available_moves(game_state)
@@ -37,26 +36,13 @@ class ComputerPlayer
         new_game_state[move] = ' '
       end
     end
-    @scores_for_move.inspect
-    @choice = best_position(current_player, @scores_for_move)
-    end
-
-    def best_position(current_player, scores)
-    if current_player == 'o'
-      scores.max_by do |key,value| value
-      return key
-      end
-    elsif
-      current_player == 'x'
-      scores.min_by do |key,value| value
-      return key
-      end
-    end
+    @scores_for_move
+    @choice = @scores_for_move 
   end
 
   def best_move(game_state)
-    index = minimax_score(game_state,current_player = 'x')
-    @cells[index] = 'x'
+    index = minimax_score(game_state,'x')
+    @cells[index] = 'o'
     @cells
   end
 
