@@ -1,28 +1,18 @@
 require 'board'
-
 class Score
-  def initialize(cells)
+  def initialize(cells,input,output)
     @cells = cells
-    @board = Board.new(@cells)
+    @input = input
+    @output = output
+    @board = Board.new(@cells,@input,@output)
   end
 
-  def min(scores)
-    scores.min
-  end
-
-  def max(scores)
-    scores.max
-  end
-
-  def x_score(game_state)
-    if @board.any_x_winners?(game_state) 
+  def score
+    score = 0
+    if @board.any_won? == true
       score = + 10
-    elsif @board.any_o_winners?(game_state) 
-      score = - 10
-    else 
+    elsif @board.draw? == true
       score = 0
     end
-    score
   end
-
 end

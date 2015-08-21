@@ -1,5 +1,19 @@
 class Board
-  def initialize(cells)
+
+HORIZONTAL_WINS = [0,1,2],
+                  [3,4,5],
+                  [6,7,8]
+
+VERTICAL_WINS = [0,3,6],
+                [1,4,7],
+                [2,5,8]
+
+DIAGONAL_WINS = [0,4,8],
+                [2,4,6]
+
+  def initialize(cells,input,output)
+    @input = input
+    @output = output
     @cells = cells
   end
 
@@ -15,18 +29,15 @@ class Board
     @cells.include?(" ")
   end
 
-  def winning_positions
-    won = [[0,1,2], 
-           [0,3,6],
-           [6,7,8],
-           [8,5,2],
-           [3,4,5],
-           [1,4,7],
-           [0,4,8],
-           [2,4,8]]
+  def current_player(move_count)
+    if move_count % 2 == 0
+      current_player = :x   
+    else
+      current_player = :o
+    end
   end
 
-  def player_indicies(cells,player)
+  def player_indicies(cells)
     @x_indicies = []
     @o_indicies = []
     cells.each_with_index do |cell,index|
@@ -38,65 +49,46 @@ class Board
     end
   end
 
-  def any_won?(indicies)
-    won = []
-    i = 0 
-    n = 0
-    winning_positions.each do |winning_combination|
-      indicies.each do |winner|
-        if winner == winning_combination[n]
-          won << winner 
-        end
+  def any_won?
+    player_indicies(@cells)
+    vertical_win?(@x_indicies) == true || 
+    horizontal_win?(@x_indicies) == true || 
+    diagonal_win?(@x_indicies) == true || 
+    vertical_win?(@o_indicies) == true || 
+    horizontal_win?(@o_indicies) == true || 
+    diagonal_win?(@o_indicies) == true
+  end
+
+  def draw?
+    any_won? == false
+  end
+
+  def game_over?
+    any_won? == true || board_not_full? == false
+  end
+
+  def horizontal_win?(horizontal_win_indicies)
+    HORIZONTAL_WINS.each do |winning_row|
+      if (winning_row - horizontal_win_indicies).empty?
+        return true
       end
-      n += 1
     end
-    puts won.inspect
   end
 
-  def any_x_winners?(cells)
-    x_winning_positions(cells).size > 0
-  end
-
-  def any_o_winners?(cells)
-    o_winning_positions(cells).size > 0
-  end
-
-  def x_winning_positions(cells)
-    win = {:top_row_win => cells[0] == 'x' && cells[1] == 'x' && cells[2] == 'x',
-      :left_side_win => cells[0] == 'x' && cells[3] == 'x' && cells[6] == 'x',           
-      :bottom_row_win => cells[6] == 'x' && cells[7] == 'x' && cells[8] == 'x',          
-      :right_side_win => cells[8] == 'x' && cells[5] == 'x' && cells[2] == 'x',          
-      :middle_row_win => cells[3] == 'x' && cells[4] == 'x' && cells[5] == 'x', 
-      :middle_column_win => cells[1] == 'x' && cells[4] == 'x' && cells[7] == 'x', 
-      :diagonal_from_top_left => cells[0] == 'x' && cells[4] == 'x' && cells[8] == 'x', 
-      :diagonal_from_top_right => cells[2] == 'x' && cells[4] == 'x' && cells[6] == 'x'}
-
-    @x_winners = []
-    win.each_with_index do |(check_move,cells),index|
-    if cells == true
-      @x_winners << check_move
-    end
-    end
-    @x_winners
-  end
-
-  def o_winning_positions(cells)
-    o_win = {
-      :o_top_row_win => cells[0] == 'o' && cells[1] == 'o' && cells[2] == 'o',
-      :o_left_side_win => cells[0] == 'o' && cells[3] == 'o' && cells[6] == 'o',           
-      :o_bottom_row_win => cells[6] == 'o' && cells[7] == 'o' && cells[8] == 'o',          
-      :o_right_side_win => cells[8] == 'o' && cells[5] == 'o' && cells[2] == 'o',          
-      :o_middle_row_win => cells[3] == 'o' && cells[4] == 'o' && cells[5] == 'o', 
-      :o_middle_column_win => cells[1] == 'o' && cells[4] == 'o' && cells[7] == 'o', 
-      :o_diagonal_from_top_left => cells[0] == 'o' && cells[4] == 'o' && cells[8] == 'o', 
-      :o_diagonal_from_top_right => cells[2] == 'o' && cells[4] == 'o' && cells[6] == 'o'}
-
-      @o_winners = []
-      o_win.each_with_index do |(check_move,cells),index|
-      if cells == true
-        @o_winners << check_move
+  def diagonal_win?(diagonal_win_indicies)
+    DIAGONAL_WINS.each do |winning_row|
+      if (winning_row - diagonal_win_indicies).empty?
+        return true
       end
-      end
-      @o_winners
+    end
   end
+
+  def vertical_win?(vertical_win_indicies)
+    VERTICAL_WINS.each do |winning_row|
+      if (winning_row - vertical_win_indicies).empty?
+        return true
+      end
+    end
+  end
+
 end

@@ -7,19 +7,25 @@ class Display
     @input = input
     @output = output
     @game = Game.new(@cells,@input,@output)
+    @board = Board.new(@cells,@input,@output)
+    @move_count = 0
   end
 
   def game_loop
     @output.puts "Choose a position on the board (1 - 9):"
-    while @game.board_not_full?
+    while @board.game_over? == false
       display_board(@cells)
-      new_board = @game.player_two_turn
-      display_board(new_board)
-      new_board = @game.player_two_turn
+      new_board = @game.human_player_move
+      @move_count += 1
       new_game_board = @game.computer_player
-      display_board(new_game_board)
-      @output.puts "End of game."
+      @move_count += 1
     end
+      display_board(@cells)
+      @output.puts "End of game."
+  end
+
+  def move_count
+     @move_count   
   end
 
   def display_board(cells)

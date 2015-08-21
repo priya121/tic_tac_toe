@@ -10,20 +10,24 @@ class Game
     @cells = cells
     @input = input
     @output = output
-    @board = Board.new(@cells)
-    @players = Players.new(@cells,@input,@output)
+    @board = Board.new(@cells,@input,@output)
+    @player = Player.new(@cells,@input,@output)
     @computer_player = ComputerPlayer.new(@cells,@input,@output)
   end
 
-  def board_not_full?
-    @board.board_not_full? && @board.any_x_winners?(@cells) == false && @board.any_o_winners?(@cells) == false
-  end
-
-  def player_two_turn
-    @players.player_two_move
+  def human_player_move
+    @player.player_move
   end
 
   def computer_player
-    @computer_player.best_move(@cells)
+    @computer_player.best_move(@cells,'o')
+  end
+
+  def current_player(move_count)
+    if move_count % 2 == 0
+      current_player = :x   
+    else
+      current_player = :o
+    end
   end
 end

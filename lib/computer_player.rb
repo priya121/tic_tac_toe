@@ -4,8 +4,9 @@ require 'player'
 class ComputerPlayer
   def initialize(cells,input,output)
     @cells = cells
-    @score = Score.new(@cells)
-    @board = Board.new(@cells)
+    @score = Score.new(@cells,@input,@output)
+    @board = Board.new(@cells,@input,@output)
+    @move_count = 0
   end
 
   def all_available_moves(game_state)
@@ -23,26 +24,30 @@ class ComputerPlayer
   end
 
   def minimax_score(game_state,current_player)
-    if @board.board_not_full? != true || @board.any_x_winners?(game_state) == true || @board.any_o_winners?(game_state) == true
-      return @score.x_score(game_state)
+    if @board.game_over? == true
+      return @score.score
     else
       @scores_for_move = {}
       @moves_index = []
       index_of_all_moves(game_state).each do |move|
         new_game_state = game_state
         new_game_state[move] = current_player
-        @scores_for_move[move] = (minimax_score(new_game_state,switch_player(current_player)))
+        @move_count += 1
+        puts new_game_state.inspect
+        puts @move_count
+        @scores_for_move[move] = (minimax_score(new_game_state,current_player))
+        current_player = switch_player(current_player)
         @moves_index << move
         new_game_state[move] = ' '
       end
     end
-    @scores_for_move
-    @choice = @scores_for_move 
+    puts @scores_for_move.inspect
+    @scores_for_move.key(10)
   end
 
-  def best_move(game_state)
-    index = minimax_score(game_state,'x')
-    @cells[index] = 'o'
+  def best_move(game_state,current_player)
+    index = minimax_score(game_state,current_player)
+    @cells[index] = "#{current_player}"
     @cells
   end
 
