@@ -13,7 +13,7 @@ class Display
   end
 
   def game_loop
-    while @board.game_over? == false && @board.board_not_full? == true
+    while @board.game_over? == false || @board.board_not_full? == true
     @output.print "Choose a position on the board (1 - 9):"
       string_board = display_converter(@board.cells) 
       display_board(string_board)
