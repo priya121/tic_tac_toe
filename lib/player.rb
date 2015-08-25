@@ -1,27 +1,20 @@
 require 'board'
-require 'score'
-require 'game'
 
 class Player
-  attr_reader :move
-  
-  def initialize(cells,input,output)
-    @cells = cells
+  def initialize(input,output,cells)
     @input = input
     @output = output
-    @board = Board.new(@cells,@input,@output)
-    @score = Score.new(@cells,@input,@output)
+    @cells = cells
+    @board = Board.new(@input,@output,@cells)
   end
 
-  def player_move
+  def player_make_move
     index = @input.gets.to_i - 1
     if @board.check_empty?(index) 
-      @cells[index] = 'x'
+      @board.make_move(index, :x) 
     else 
       @output.puts "position occupied, try again"
-      player_move
+      player_make_move
     end
-    @cells
   end
-
 end

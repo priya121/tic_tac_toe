@@ -1,26 +1,21 @@
-require 'display'
 require 'player'
-require 'board'
 require 'computer_player'
 
 class Game
-  attr_reader :cells
-
   def initialize(cells,input,output)
     @cells = cells
     @input = input
     @output = output
-    @board = Board.new(@cells,@input,@output)
-    @player = Player.new(@cells,@input,@output)
+    @player = Player.new(@input,@output,@cells)
     @computer_player = ComputerPlayer.new(@cells,@input,@output)
   end
 
   def human_player_move
-    @player.player_move
+    @player.player_make_move
   end
 
   def computer_player
-    @computer_player.best_move(@cells,'o')
+    @computer_player.best_move(@cells,:o)
   end
 
   def current_player(move_count)

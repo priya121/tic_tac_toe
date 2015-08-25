@@ -13,7 +13,7 @@ describe Game do
                  ' ',' ',' ',
                  ' ',' ',' ']
     result = Game.new(new_board,input,output).computer_player
-    expect(result).to include('o')
+    expect(result).to include(:o)
   end
 
   it 'adds to the move score everytime a move is made by computer or human player' do 

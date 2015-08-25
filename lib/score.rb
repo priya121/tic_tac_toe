@@ -1,10 +1,10 @@
 require 'board'
 class Score
-  def initialize(cells,input,output)
-    @cells = cells
+  def initialize(input,output,cells)
     @input = input
     @output = output
-    @board = Board.new(@cells,@input,@output)
+    @cells = cells
+    @board = Board.new(@input,@output,@cells)
   end
 
   def score
